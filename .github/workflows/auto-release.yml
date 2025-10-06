@@ -29,6 +29,17 @@ jobs:
         env:
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
 
+      - name: Commit and push updated manifest to main
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add module.json
+          git commit -m "Update module.json version to v${GITHUB_RUN_NUMBER}"
+          git push origin main
+        env:
+          GITHUB_RUN_NUMBER: ${{ github.run_number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create release with unique tag
         uses: softprops/action-gh-release@v2
         with:
