@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'module.json'  # Pour éviter boucle avec commit actions
 
 permissions:
   contents: write
@@ -20,12 +18,13 @@ jobs:
       - name: Validate module.json syntax
         run: jq empty module.json
 
-      - name: Update manifest version and download URL in module.json
+      - name: Update manifest URLs in module.json
         run: |
           VERSION="v${GITHUB_RUN_NUMBER}"
           jq --arg ver "${GITHUB_RUN_NUMBER}" \
+             --arg manifest_url "https://github.com/draniak/Compendium-ACTOR_ELFYA/raw/$VERSION/module.json" \
              --arg download_url "https://github.com/draniak/Compendium-ACTOR_ELFYA/releases/download/$VERSION/module-zip.txt" \
-             '.version = $ver | .download = $download_url' module.json > module.tmp.json
+             '.version = $ver | .manifest = $manifest_url | .download = $download_url' module.json > module.tmp.json
           mv module.tmp.json module.json
         env:
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
@@ -35,7 +34,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add module.json
-          git commit -m "Update module.json version to v${GITHUB_RUN_NUMBER}" || echo "No changes to commit"
+          git commit -m "Update module.json version to v${GITHUB_RUN_NUMBER}"
           git push origin main
         env:
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
