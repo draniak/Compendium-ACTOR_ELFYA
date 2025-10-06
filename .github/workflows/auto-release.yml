@@ -15,8 +15,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Release avec tag unique
       - name: Create release with unique tag
-        id: release
+        id: release_unique
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ github.run_number }}
@@ -27,13 +28,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update ‘latest’ tag to point to newest release
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git fetch --tags
-          # Forcer la création ou mise à jour du tag 'latest' vers la nouvelle release
-          git tag -f latest v${{ github.run_number }}
-          git push -f origin latest
+      # Release avec tag 'latest'
+      - name: Create release with latest tag
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest release
+          files: |
+            module.json
+            module-zip.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
