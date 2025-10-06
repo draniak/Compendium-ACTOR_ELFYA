@@ -2,11 +2,9 @@
   "name": "ACTOR_ELFYA",
   "title": "Acteur_elfya",
   "description": "A module containing the exported Acteur_elfya compendium.",
-<<<<<<< HEAD
   "version": "1.0.0",
-=======
   "version": "17",
->>>>>>> 55dfcaa0ad3a10c61b8d19d534ac40b7002bd077
+  
   "library": "false",
   "manifestPlusVersion": "1.0.0",
   "compatibility": {
@@ -31,11 +29,6 @@
       "system": "dnd5e"
     }
   ],
-<<<<<<< HEAD
   "manifest": "https://github.com/draniak/Compendium-ACTOR_ELFYA/raw/module.json",
   "download": "https://github.com/draniak/Compendium-ACTOR_ELFYA/releases/download/module-zip.txt"
-=======
-  "manifest": "https://github.com/draniak/Compendium-ACTOR_ELFYA/raw/v16/module.json",
-  "download": "https://github.com/draniak/Compendium-ACTOR_ELFYA/releases/download/v17/module-zip.txt"
->>>>>>> 55dfcaa0ad3a10c61b8d19d534ac40b7002bd077
 }
