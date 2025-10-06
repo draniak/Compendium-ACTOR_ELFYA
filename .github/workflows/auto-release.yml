@@ -12,12 +12,27 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Release avec tag unique
-      - name: Create release with unique tag
-        id: release_unique
+      - name: Validate module.json syntax
+        run: |
+          jq empty module.json
+
+      - name: Update manifest version and download URL
+        run: |
+          VERSION="v${GITHUB_RUN_NUMBER}"
+          # Met à jour "version" sans "v"
+          jq --arg ver "${GITHUB_RUN_NUMBER}" '.version = $ver' module.json > module.tmp.json
+          mv module.tmp.json module.json
+          # Met à jour download URL avec le tag complet
+          jq --arg url "https://github.com/draniak/Compendium-ACTOR_ELFYA/releases/download/$VERSION/module-zip.txt" \
+            '.download = $url' module.json > module.tmp.json
+          mv module.tmp.json module.json
+        env:
+          GITHUB_RUN_NUMBER: ${{ github.run_number }}
+
+      - name: Create release with version tag
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ github.run_number }}
@@ -28,7 +43,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Release avec tag 'latest'
       - name: Create release with latest tag
         uses: softprops/action-gh-release@v2
         with:
@@ -39,3 +53,6 @@ jobs:
             module-zip.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Output current version for debug
+        run: jq '.version' module.json
