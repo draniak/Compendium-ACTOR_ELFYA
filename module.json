@@ -3,8 +3,6 @@
   "title": "Acteur_elfya",
   "description": "A module containing the exported Acteur_elfya compendium.",
   "version": "1.0.0",
-  "version": "17",
-  
   "library": "false",
   "manifestPlusVersion": "1.0.0",
   "compatibility": {
