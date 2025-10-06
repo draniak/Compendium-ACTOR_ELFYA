@@ -2,7 +2,7 @@
   "name": "ACTOR_ELFYA",
   "title": "Acteur_elfya",
   "description": "A module containing the exported Acteur_elfya compendium.",
-  "version": "14",
+  "version": "15",
   "library": "false",
   "manifestPlusVersion": "1.0.0",
   "compatibility": {
@@ -28,5 +28,5 @@
     }
   ],
   "manifest": "https://github.com/draniak/Compendium-ACTOR_ELFYA/raw/v14/module.json",
-  "download": "https://github.com/draniak/Compendium-ACTOR_ELFYA/releases/download/v14/module-zip.txt"
+  "download": "https://github.com/draniak/Compendium-ACTOR_ELFYA/releases/download/v15/module-zip.txt"
 }
