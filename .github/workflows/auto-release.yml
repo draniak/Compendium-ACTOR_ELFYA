@@ -1,3 +1,5 @@
+name: Auto Release for Foundry VTT
+
 on:
   push:
     branches:
@@ -13,7 +15,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create unique release
+      - name: Create release with unique tag
+        id: release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ github.run_number }}
@@ -21,5 +24,15 @@ jobs:
           files: |
             module.json
             module-zip.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update latest tag to point to latest release
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git fetch --tags
+          git tag -f latest v${{ github.run_number }}
+          git push -f origin latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
