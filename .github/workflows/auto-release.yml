@@ -1,4 +1,4 @@
-name: Auto Release on Commit
+ame: Auto Release on Commit
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  metadata: read
 
 jobs:
   release:
@@ -15,13 +16,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create Release
-        id: create_release
+      - name: Create unique release
+        id: release
         uses: softprops/action-gh-release@v2
         with:
-          name: Release ${{ github.run_number }}
+          name: Release v${{ github.run_number }}
           tag_name: v${{ github.run_number }}
           files: |
-            ./dist/*
+            module.json
+            module-zip.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update latest tag
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git fetch --tags
+          git tag -f latest v${{ github.run_number }}
+          git push -f origin latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
