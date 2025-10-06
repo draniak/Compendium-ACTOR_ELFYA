@@ -1,4 +1,4 @@
-ame: Auto Release on Commit
+name: Auto Release on Commit
 
 on:
   push:
