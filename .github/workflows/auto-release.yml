@@ -1,4 +1,4 @@
-name: Auto Release for Foundry VTT
+name: Release Foundry VTT Package
 
 on:
   push:
@@ -27,11 +27,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update latest tag to point to latest release
+      - name: Update ‘latest’ tag to point to newest release
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git fetch --tags
+          # Forcer la création ou mise à jour du tag 'latest' vers la nouvelle release
           git tag -f latest v${{ github.run_number }}
           git push -f origin latest
         env:
