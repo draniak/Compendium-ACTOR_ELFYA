@@ -1,0 +1,32 @@
+{
+    "name": "ACTOR_ELFYA",
+    "title": "Acteur_elfya",
+    "description": "A module containing the exported Acteur_elfya compendium.",
+    "version": "1.0.0",
+    "library": "false",
+    "manifestPlusVersion": "1.0.0",
+    "compatibility": {
+        "minimum": 10,
+        "verified": 12,
+        "maximum": 13
+    },
+    "authors": [
+        {
+            "name": "Grim",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "packs": [
+        {
+            "type": "Actor",
+            "label": "Acteur_elfya",
+            "module": "ACTOR_ELFYA",
+            "path": "packs/la-tour-des-ombres-silencieuses-acteurelfya-1726962858242.db",
+            "name": "la-tour-des-ombres-silencieuses-acteurelfya-1726962858242",
+            "system": "dnd5e"
+        }
+    ],
+    "manifest": "https://github.com/draniak/Compendium-ACTOR_ELFYA/module.json",
+    "download": "https://github.com/draniak/Compendium-ACTOR_ELFYA/module-zip.txt"
+}
